@@ -56,23 +56,20 @@ async def twitter_login_and_get_attributes():
     proxy_pac_url = "http://localhost:8080/proxy.pac"  # Path to your PAC file served by local server
     
     chrome_options = Options()
+    service = Service( service_args=["--verbose", "--log-path=chromedriver.log"])
+
     chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-extensions")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--no-sandbox") 
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--remote-debugging-port=9222")
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_argument(f"--proxy-pac-url={proxy_pac_url}")
     chrome_options.add_argument('headless')
-    chrome_driver_path= ''
-    if os.name == 'nt':
-        chrome_driver_path = 'driver/chromedriver.exe'
-        print('Window Machine')
-    else:
-        chrome_driver_path = 'driver/chromedriver'
-        print('Linux Machine')
 
-    service = Service(executable_path=chrome_driver_path)
 
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver = webdriver.Chrome(service=service,options=chrome_options)
 
     try:
         print("Starting browser and navigating to Twitter login page")
