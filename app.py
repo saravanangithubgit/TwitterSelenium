@@ -66,7 +66,7 @@ async def twitter_login_and_get_attributes():
     chrome_options.add_argument("--remote-debugging-port=9222")
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_argument(f"--proxy-pac-url={proxy_pac_url}")
-    chrome_options.add_argument('headless')
+    
 
 
     driver = webdriver.Chrome(service=service,options=chrome_options)
@@ -126,7 +126,7 @@ async def twitter_login_and_get_attributes():
         print("Logged in successfully")
 
         # Click on the "Show more" link
-        show_more_button = WebDriverWait(driver, 120).until(
+        show_more_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//a[@href="/explore/tabs/for-you"]//span[contains(text(), "Show more")]'))
         )
         show_more_button.click()
