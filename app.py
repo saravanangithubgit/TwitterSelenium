@@ -13,6 +13,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import asyncio
 import aiohttp
 import requests  # Import the requests library
+from urllib.parse import quote as url_quote
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -21,6 +22,7 @@ CORS(app)
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 DATABASE_URL = "https://twitertrend.onrender.com/api/trends"  # Your database endpoint
 
@@ -32,9 +34,11 @@ async def fetch_public_ip():
 
 # Function to fetch all records from the database
 async def fetch_all_records():
+
     api_url = "https://twitertrend.onrender.com/api/trends"
     async with aiohttp.ClientSession() as session:
         async with session.get(api_url) as response:
+
             if response.status != 200:
                 return {"error": f"Failed to fetch data: {response.status}"}
             return await response.json()
@@ -62,6 +66,7 @@ async def twitter_login_and_get_attributes():
 
     chrome_driver_path = 'driver/chromedriver.exe'
     service = Service(executable_path=chrome_driver_path)
+
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
