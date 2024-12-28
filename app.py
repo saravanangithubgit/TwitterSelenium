@@ -13,6 +13,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import asyncio
 import aiohttp
 import requests  # Import the requests library
+from urllib.parse import quote as url_quote
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -22,7 +23,8 @@ CORS(app)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-DATABASE_URL = "https://twitertrend.onrender.com/api/trends"  # Your database endpoint
+# Fetch DATABASE_URL from environment variables
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 # Function to fetch public IP
 async def fetch_public_ip():
@@ -32,9 +34,8 @@ async def fetch_public_ip():
 
 # Function to fetch all records from the database
 async def fetch_all_records():
-    api_url = "https://twitertrend.onrender.com/api/trends"
     async with aiohttp.ClientSession() as session:
-        async with session.get(api_url) as response:
+        async with session.get(DATABASE_URL) as response:
             if response.status != 200:
                 return {"error": f"Failed to fetch data: {response.status}"}
             return await response.json()
