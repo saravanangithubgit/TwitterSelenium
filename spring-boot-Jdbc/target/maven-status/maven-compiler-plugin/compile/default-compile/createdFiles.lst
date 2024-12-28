@@ -1,0 +1,6 @@
+com\example\middleware\service\TrendService.class
+com\example\middleware\SpringBootMiddlewareApplication.class
+com\example\middleware\repository\TrendRepository.class
+com\example\middleware\model\Trend.class
+com\example\middleware\dto\TrendDTO.class
+com\example\middleware\controller\TrendController.class
