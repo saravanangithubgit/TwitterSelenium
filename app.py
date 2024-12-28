@@ -77,7 +77,7 @@ async def twitter_login_and_get_attributes():
         print("Navigated to Twitter login page")
 
         # Enter username
-        username_field = WebDriverWait(driver, 10).until(
+        username_field = WebDriverWait(driver, 120).until(
             EC.presence_of_element_located((By.XPATH, '//*[@name="text"]'))
         )
         username_field.send_keys("saravan19212894")
@@ -120,13 +120,13 @@ async def twitter_login_and_get_attributes():
         login_button.click()
         print("Login button clicked successfully")
 
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, '//*[@aria-label="Timeline: Trending now"]'))
-        )
+        # WebDriverWait(driver, 10).until(
+        #     EC.presence_of_element_located((By.XPATH, '//*[@aria-label="Timeline: Trending now"]'))
+        # )
         print("Logged in successfully")
 
         # Click on the "Show more" link
-        show_more_button = WebDriverWait(driver, 10).until(
+        show_more_button = WebDriverWait(driver, 120).until(
             EC.element_to_be_clickable((By.XPATH, '//a[@href="/explore/tabs/for-you"]//span[contains(text(), "Show more")]'))
         )
         show_more_button.click()
