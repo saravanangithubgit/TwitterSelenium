@@ -62,9 +62,14 @@ async def twitter_login_and_get_attributes():
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_argument(f"--proxy-pac-url={proxy_pac_url}")
     chrome_options.add_argument('headless')
+    chrome_driver_path= ''
+    if os.name == 'nt':
+        chrome_driver_path = 'driver/chromedriver.exe'
+        print('Window Machine')
+    else:
+        chrome_driver_path = 'driver/chromedriver'
+        print('Linux Machine')
 
-
-    chrome_driver_path = 'driver/chromedriver.exe'
     service = Service(executable_path=chrome_driver_path)
 
     driver = webdriver.Chrome(service=service, options=chrome_options)
